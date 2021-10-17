@@ -1,1 +1,1 @@
-# salesforce-featured-products
+# Featured Products for Salesforce Commerce LWC
