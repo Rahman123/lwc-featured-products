@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Featured Products</masterLabel>
+    <description>Showcase for your B2B Commerce products. *Products shown in preview may not reflect actual products in your community.</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="featuredProductStyle" label="Style" type="String" datasource="Stacked,Tiled" default="Tiled"/>
+            <property name="showHeading" label="Show Heading" type="Boolean" default="true"/>
+            <property name="featuredProductsHeading" label="Heading" description="Heading text to display above the component" type="String"/>
+            <property name="featuredProductsHeadingSize" label="Heading Size" type="String" datasource="Small,Medium,Large" default="Small"/>
+            <property name="featuredProductsHeadingAlignment" label="Heading Alignment" type="String" datasource="Left,Center,Right" default="Left"/>
+            <property name="featuredProductsBodySize" label="Body Size" type="String" datasource="Small,Regular" default="Regular"/>
+            <property name="featuredProductsBodyAlignment" label="Body Alignment" type="String" datasource="Left,Center,Right" default="Left"/>
+            <property name="showSKU" label="Show SKU" description="Toggle the display of product SKU" type="Boolean" default="true"/>
+            <property name="showDescription" label="Show Description" description="Toggle the display of product description" type="Boolean" default="false"/>
+            <property name="includePrices" label="Show Prices" description="Toggle the display of pricing information" type="Boolean" default="true"/>
+            <property name="featuredProductsComponentBackgroundColor" label="Component Background Color" type="Color" default="rgba(255, 255, 255, 1)"/>
+            <property name="featuredProductsBackgroundColor" label="Product Background Color" type="Color" default="rgba(255, 255, 255, 1)"/>
+            <property name="featuredProductsBorderColor" label="Border Color" type="Color" default="rgba(212, 212, 212, 1)"/>
+            <property name="featuredProductsHeadingColor" label="Heading Color" type="Color" default="rgba(0, 0, 0, 1)"/>
+            <property name="featuredProductsSkuColor" label="SKU Color" type="Color" default="rgba(0, 0, 0, 1)"/>
+            <property name="featuredProductsDescriptionColor" label="Description Color" type="Color" default="rgba(0, 0, 0, 1)"/>
+            <property name="featuredProductsPriceColor" label="Price Color" type="Color" default="rgba(0, 0, 0, 1)"/>
+            <property name="productSource" label="Products Source" description="Display products via list of SKUs or a designated category ID" type="String" datasource="SKU List, Category ID, Field" default="SKU List"/>
+            <property name="skuList" label="SKU List" description="Comma separated list of SKUs to display" type="String"/>
+            <property name="categoryId" label="Category ID" description="The ID of the category to from which to populate products" type="String"/>
+            <property name="fieldApiName" label="Field API Name" description="The API name of the Product field you want to query.  Only fields of type String, Picklist and Boolean may be used." type="String"/>
+            <property name="compareType" label="Compare Type" description="The type of comparison to perform" type="String" datasource="contains, equals" default="equals"/>
+            <property name="fieldValue" label="Field Value" description="The value of the Product field.  For Boolean fields, enter true or false." type="String"/>
+            <property name="effectiveAccountId" label="Effective Account Id (BETA)" description="The ID of the account under which the user is acting (BETA)" type="String" default="{!CurrentUser.effectiveAccountId}"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

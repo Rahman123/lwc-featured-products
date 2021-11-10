@@ -1,0 +1,181 @@
+<template>
+	<template if:true={showLoadingSpinner}>
+		<lightning-spinner alternative-text={labels.component.altPleaseWait} size="medium"></lightning-spinner>
+	</template>
+
+	<div class="slds-var-p-around_small" style={componentStyles}>
+		<template if:true={hasProducts}>
+			<template if:true={showHeading}>
+				<div class="slds-grid slds-gutters container">
+					<div class="slds-col">
+						<div class="slds-var-m-bottom_small">
+							<div class={headingAlignment}>
+								<div class={headingSize}>
+									<div style={headingColor}>{featuredProductsHeading}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+
+			<!-- TILED -->
+			<template if:true={isTiled}>
+				<div class="slds-grid slds-grid_align-center slds-wrap slds-gutters container featuredProductsContainer tiled">
+					<template for:each={products} for:item="product">
+						<div class="tile-column slds-col" key={product.sku}>
+							<article class="slds-card slds-var-m-around_medium" style={cardStyles}>
+								<div class="slds-card__body slds-card__body_inner">
+									<!-- IMAGE -->
+									<div class="featuredProdImage" style={imageContainerHeight}>
+										<a href={product.productLink} class="slds-align_absolute-center">
+											<img id={product.defaultImage.id} src={product.defaultImage.url} alt={product.defaultImage.title} style={imageMaxHeight} />
+										</a>
+									</div>
+
+									<div class={bodyAlignment}>
+										<div class={bodySize}>
+											<!-- NAME-->
+											<div class="slds-var-m-vertical_small featuredProdName">
+												<div class="slds-text-heading_small">
+													<a href={product.productLink}> {product.fields.Name.value} </a>
+												</div>
+											</div>
+
+											<!-- SKU -->
+											<template if:true={showSKU}>
+												<div class="slds-var-m-vertical_small featuredProdSKU" style={skuColor}>
+													<p style={skuColor}>{product.fields.StockKeepingUnit.value}</p>
+												</div>
+											</template>
+
+											<!-- DESCRIPTION -->
+											<template if:true={showDescription}>
+												<div class="slds-var-m-vertical_small featuredProdDescription">
+													<p style={descriptionColor}>{product.fields.Description.value}</p>
+												</div>
+											</template>
+
+											<!-- PRICE -->
+											<template if:true={includePrices}>
+												<div class="featuredProdPrice" style={priceColor}>
+													<span class="slds-var-m-right_xx-small slds-text-body_small basePrice">
+														<s>
+															<lightning-formatted-number
+																value={product.prices.listPrice}
+																format-style="currency"
+																currency-code={currencyCode}
+																currency-display-as="symbol"
+															>
+															</lightning-formatted-number>
+														</s>
+													</span>
+
+													<span class="calculatedPrice">
+														<b>
+															<lightning-formatted-number
+																value={product.prices.unitPrice}
+																format-style="currency"
+																currency-code={currencyCode}
+																currency-display-as="symbol"
+															>
+															</lightning-formatted-number>
+														</b>
+													</span>
+												</div>
+											</template>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+					</template>
+				</div>
+			</template>
+
+			<!-- STACKED -->
+			<template if:true={isStacked}>
+				<div class="slds-grid slds-wrap slds-gutters container featuredProductsContainer stacked">
+					<template for:each={products} for:item="product">
+						<div class="slds-col slds-size_1-of-1" key={product.sku}>
+							<div class="slds-box slds-var-m-around_medium" style={cardStyles}>
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+										<!-- IMAGE -->
+										<div class="featuredProdImage">
+											<a href={product.productLink} class="slds-align_absolute-center">
+												<img id={product.defaultImage.id} src={product.defaultImage.url} alt={product.defaultImage.title} />
+											</a>
+										</div>
+									</div>
+
+									<div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+										<div class={bodyAlignment}>
+											<div class={bodySize}>
+												<!-- NAME-->
+												<div class="slds-var-m-vertical_small featuredProdName">
+													<div class="slds-text-heading_small">
+														<a href={product.productLink}> {product.fields.Name.value} </a>
+													</div>
+												</div>
+
+												<!-- SKU -->
+												<template if:true={showSKU}>
+													<div class="slds-var-m-vertical_small featuredProdSKU">
+														<p style={skuColor}>{product.fields.StockKeepingUnit.value}</p>
+													</div>
+												</template>
+
+												<!-- DESCRIPTION -->
+												<template if:true={showDescription}>
+													<div class="slds-var-m-vertical_small featuredProdDescription">
+														<p style={descriptionColor}>{product.fields.Description.value}</p>
+													</div>
+												</template>
+
+												<!-- PRICE -->
+												<template if:true={includePrices}>
+													<div class="featuredProdPrice" style={priceColor}>
+														<span class="slds-var-m-right_xx-small slds-text-body_small basePrice">
+															<s>
+																<lightning-formatted-number
+																	value={product.prices.listPrice}
+																	format-style="currency"
+																	currency-code={currencyCode}
+																	currency-display-as="symbol"
+																>
+																</lightning-formatted-number>
+															</s>
+														</span>
+
+														<span class="calculatedPrice">
+															<b>
+																<lightning-formatted-number
+																	value={product.prices.unitPrice}
+																	format-style="currency"
+																	currency-code={currencyCode}
+																	currency-display-as="symbol"
+																>
+																</lightning-formatted-number>
+															</b>
+														</span>
+													</div>
+												</template>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</template>
+
+			<template if:false={hasProducts}>
+				<div class={headingAlignment}>
+					<div class={headingSize}>{labels.component.noProducts}</div>
+				</div>
+			</template>
+		</template>
+	</div>
+</template>
